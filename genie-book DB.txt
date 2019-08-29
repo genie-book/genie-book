@@ -1,4 +1,4 @@
-﻿drop table member;
+drop table member;
 drop table address;
 /*회원정보*/
 create table address(
@@ -65,6 +65,19 @@ drop sequence seq_g_board_boardId;
 create sequence seq_g_board_boardId
  START WITH  1
 INCREMENT BY 1;
+
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '1', sysdate, '1',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '2', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '3', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '4', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '5', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '6', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '7', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '8', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '9', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '10', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+Insert into g_board(boardId, memberId, title, boardDate, content, originNo, groupOrd, groupLayer) values (seq_g_board_boardId.nextval, 'cnh0214', '책 배송이 너무 늦어요', sysdate, '책 배송이 너무 늦어요',seq_g_board_boardId.nextval, 0,0);
+
 
 drop table cart;
 create table cart(
@@ -141,6 +154,9 @@ DESCRIPTION VARCHAR2(4000));
 CREATE SEQUENCE seq_bookNo
 START WITH  1
 INCREMENT BY 1;
+
+
+
 
 INSERT INTO product (BOOKNO, CATEGORY, BOOKNAME, WRITER, PUBLISHER, PUBYEAR, PRICE, STOCK, IMAGEFILENAME, DESCRIPTION) 
 VALUES (seq_bookNo.nextval, 'novel1', '지구에서 한아뿐', '정세랑', '난다', to_date('2019/07/31', 'RRRR-MM-DD'), 13000, 100, '지구에서 한아뿐.jpg', '사랑을 위해 2만 광년을 날아온 외계인!<p>자신의 사랑이 우주에서 단 하나뿐임을 바라는 연인들을 위한 이야기 『지구에서 한아뿐』. SF, 로맨스, 호러, 스릴러 등 장르의 경계를 넘나드는 작가 정세랑의 소설이다. 친환경 디자이너 한아와 그녀의 외계인 남자친구 경민의 알콩달콩하면서도 범우주적인 사랑 이야기를 그리고 있다.<p>지구 환경을 지키기 위해 저탄소 생활을 하는 디자이너 한아. 그녀에게는 경민이라는 남자친구가 있다. 경민은 자신이 하고 싶은 대로 살면서 늘 한아를 기다리게 하는 자유로운 영혼이다. 캐나다로 별똥별을 보기 위해 여행을 떠난 경민에게 연락이 없던 어느 날, 한아는 캐나다에 소형 운석이 떨어지면서 큰 폭발이 있었다는 뉴스를 본다. 경민을 걱정하는 한아 앞에 며칠 뒤 아무렇지도 않은 듯 경민이 나타나지만, 평소와 달리 지나치게 다정해진 그를 보고 한아의 의심은 커져만 가는데….<p>[인터넷 교보문고 제공]');
