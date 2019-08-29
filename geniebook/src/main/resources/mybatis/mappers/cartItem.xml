@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cartItem">
+	<!-- 리절트 맵 정의 -->
+
+
+	<resultMap id="CartItemResult" type="CartItemVO">
+		<result property="id" column="id" />
+		<result property="quantity" column="quantity" />
+		<result property="totalPrice" column="totalPrice" />
+		<result property="cartId" column="cartId" />
+		<result property="bookNo" column="bookNo" />
+
+
+	</resultMap>
+	<!-- ************************************************* -->
+	<!-- <insert id="addCart" parameterType="integer"> <![CDATA[ insert into 
+		cart(id, grandTotal) values(#{cartId_mem}, 0) ]]> </insert> -->
+
+	<select id="getCartItemsByCartId" resultMap="CartItemResult"
+		parameterType="integer">
+    <![CDATA[
+      SELECT * from cartItem where cartId = #{cartId}
+    ]]>
+	</select>
+	
+	<select id="getCartItem" resultMap="CartItemResult"
+		parameterType="map">
+    <![CDATA[
+      SELECT * from cartItem where cartId = #{cartId} and bookNo=#{bookNo}
+    ]]>
+	</select>
+
+	<select id="isCartItemByBookNo" parameterType="map"
+		resultType="String">
+		select decode(count(*),1, 'true', 0, 'false')
+		from cartItem
+		where cartId = #{cartId} and bookNo=#{bookNo}
+	</select>
+
+	<insert id="addCartItem" parameterType="cartItemVO">
+  <![CDATA[
+    	insert into cartItem(id, quantity, totalPrice, cartId, bookNo)
+    					values(seq_cartItemId.nextval, #{quantity}, #{totalPrice}, #{cartId}, #{bookNo})
+                                  
+   ]]>
+	</insert>
+	
+	<update id="addCartItemQuantity" parameterType="map"  >
+	    <![CDATA[
+			update cartItem set quantity = quantity+#{quantity}, totalPrice = (quantity+#{quantity})*#{price} where cartId=#{cartId} and bookNo=#{bookNo}
+			        
+    	]]>
+	</update>
+	
+	<update id="minusCartItemQuantity" parameterType="map"  >
+	    <![CDATA[
+			update cartItem set quantity = quantity-#{quantity}, totalPrice = (quantity-#{quantity})*#{price} where cartId=#{cartId} and bookNo=#{bookNo}
+			        
+    	]]>
+	</update>
+	
+	<delete id="deleteCartItem" parameterType="map">
+		delete from cartItem where cartId = #{cartId} and bookNo = #{bookNo}
+	</delete>
+	
+	<delete id="removeAll" parameterType="integer">
+		delete from cartItem where cartId = #{cartId}
+	</delete>
+
+</mapper>

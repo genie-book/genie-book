@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.address">
+<!-- 리절트 맵 정의 -->	
+
+	
+	<resultMap id="addrResult" type="AddrVO">
+		<result property="id" column="id" />
+		<result property="addr_num" column="addr_num" />
+		<result property="addr_road" column="addr_road" />
+		<result property="addr_detail" column="addr_detail" />
+		
+	</resultMap>	
+	<!-- ************************************************* -->
+	<insert id="addAddress"  parameterType="addrVO">
+  <![CDATA[
+    	insert into address(id, addr_num, addr_road, addr_detail)
+    					values(#{id}, #{addr_num}, #{addr_road}, #{addr_detail})
+                                  
+   ]]>      
+  </insert>
+  
+  <!-- 특정id 사용자 주소 검색 --> 
+	<select id="selectUserInfo_Addr" parameterType="String" resultType="addrVO">
+	   select *
+	   from address
+	   where id = #{id}
+	</select>
+	
+	<update id="updateAddress" parameterType="addrVO"  >
+	    <![CDATA[
+			update address set addr_num=#{addr_num}, addr_road=#{addr_road}, addr_detail=#{addr_detail} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+	<delete id="deleteAddress" parameterType="String">
+		delete from address where id = #{id}
+	</delete>
+	
+</mapper>

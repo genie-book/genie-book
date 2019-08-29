@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+
+	<!--************************************layout ************************************ -->
+	<definition name="noTiles"
+		template="/WEB-INF/templates/empty.jsp">
+	</definition>
+
+	<definition name="base"
+		template="/WEB-INF/templates/layout.jsp">
+		<put-attribute name="title" value="GenieBook" />
+		<put-attribute name="header"
+			value="/WEB-INF/templates/header.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/templates/footer.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/templates/side.jsp" />
+	</definition>
+
+	<!-- not catagory -->
+	<definition name="base2"
+		template="/WEB-INF/templates/layout2.jsp">
+		<put-attribute name="title" value="GenieBook" />
+		<put-attribute name="header"
+			value="/WEB-INF/templates/header.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/templates/footer.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/templates/side.jsp" />
+	</definition>
+
+	<!-- admin -->
+	<definition name="base3"
+		template="/WEB-INF/templates/layout.jsp">
+		<put-attribute name="title" value="GenieBook" />
+		<put-attribute name="header"
+			value="/WEB-INF/templates/header2.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/templates/footer.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/templates/side.jsp" />
+	</definition>
+
+
+	<!--************************************ home ************************************ -->
+
+	<definition name="home" extends="base2">
+		<put-attribute name="title" value="GenieBook" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/home.jsp" />
+		<!-- 로그인시 홈 -->
+	</definition>
+
+
+	<!--************************************ Product ************************************ -->
+
+	<definition name="productAll" extends="base2">
+		<put-attribute name="title" value="모든 상품" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productAll.jsp" />
+	</definition>
+
+	<definition name="product-details" extends="base2">
+		<put-attribute name="title" value="제품상세 보기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/product-details.jsp" />
+	</definition>
+
+	<definition name="productDetail" extends="base2">
+		<put-attribute name="title" value="제품상세 보기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productDetail.jsp" />
+	</definition>
+
+	<definition name="productByCategory" extends="base2">
+		<put-attribute name="title" value="카테고리 별 제품 보기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/product/productByCategory.jsp" />
+	</definition>
+
+
+	<!--************************************ Member ************************************ -->
+
+	<definition name="login" extends="base">
+		<put-attribute name="title" value="로그인" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/login.jsp" />
+	</definition>
+
+	<definition name="registerForm_member" extends="base">
+		<put-attribute name="title" value="회원 가입" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/registerForm_member.jsp" />
+	</definition>
+
+	<definition name="memberInfo_ui" extends="base">
+		<put-attribute name="title" value="회원 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/memberInfo_ui.jsp" />
+	</definition>
+
+	<definition name="memberHistory" extends="base">
+		<put-attribute name="title" value="회원 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/memberHistory.jsp" />
+	</definition>
+
+	<!-- 김현정/어드민 -->
+	<definition name="adminInfo" extends="base">
+		<put-attribute name="title" value="회원 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/adminInfo.jsp" />
+	</definition>
+
+	<definition name="updateForm_member" extends="base">
+		<put-attribute name="title" value="개인 정보 변경" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/updateForm_member.jsp" />
+	</definition>
+
+	<definition name="pwdCheck" extends="base">
+		<put-attribute name="title" value="개인 정보 변경" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/pwdCheck.jsp" />
+	</definition>
+
+	<definition name="pwdCheck_delete" extends="base">
+		<put-attribute name="title" value="회원 탈퇴" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/pwdCheck_delete.jsp" />
+	</definition>
+	<definition name="historyDetail" extends="base">
+		<put-attribute name="title" value="상세 거래 내역" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/historyDetail.jsp" />
+	</definition>
+
+	<!--************************************ Checkout ************************************ -->
+
+	<definition name="checkout" extends="base">
+		<put-attribute name="title" value="결제" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/pay/checkout.jsp" />
+	</definition>
+	<definition name="cart" extends="base">
+		<put-attribute name="title" value="장바구니" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/pay/cart.jsp" />
+	</definition>
+
+
+	<!--************************************ Board ************************************ -->
+	<definition name="boardForm" extends="base">
+		<put-attribute name="title" value="게시판 폼" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/board/boardForm.jsp" />
+	</definition>
+
+	<definition name="listboards" extends="base">
+		<put-attribute name="title" value="게시판 조회" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/board/listboards.jsp" />
+	</definition>
+
+	<definition name="listboardById" extends="base">
+		<put-attribute name="title" value="게시판 조회" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/board/listboardById.jsp" />
+	</definition>
+
+	<definition name="viewBoard" extends="base">
+		<put-attribute name="title" value="글 보기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/board/viewBoard.jsp" />
+	</definition>
+
+	<definition name="replyForm" extends="base">
+		<put-attribute name="title" value="답글 쓰기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/board/replyForm.jsp" />
+	</definition>
+
+
+	<!--************************************ Manager ************************************ -->
+
+	<definition name="adminManager" extends="base3">
+		<put-attribute name="title" value="관리자" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/adminManager.jsp" />
+	</definition>
+
+	<definition name="member_search" extends="base3">
+		<put-attribute name="title" value="관리자" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/adminManager.jsp" />
+	</definition>
+
+	<definition name="memberDetail" extends="base3">
+		<put-attribute name="title" value="관리자" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/memberDetail.jsp" />
+	</definition>
+
+	<!-- 상품 관리 -->
+	<definition name="addProductForm" extends="base3">
+		<put-attribute name="title" value="상품 추가" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/addProductForm.jsp" />
+	</definition>
+
+	<definition name="updateProductForm" extends="base3">
+		<put-attribute name="title" value="상품 수정" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/updateProductForm.jsp" />
+	</definition>
+
+	<definition name="productDetail_admin" extends="base3">
+		<put-attribute name="title" value="상품 상세 페이지" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/productDetail.jsp" />
+	</definition>
+
+	<!-- 메일 -->
+	<definition name="mailSending" extends="base3">
+		<put-attribute name="title" value="메일 보내기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/mailSending.jsp" />
+	</definition>
+
+	<definition name="mailSending_all" extends="base3">
+		<put-attribute name="title" value="메일 보내기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/mailSending_all.jsp" />
+	</definition>
+
+
+	<!--************************************ ID/PW 찾기 ************************************ -->
+
+	<definition name="findIdPwd" extends="noTiles">
+		<put-attribute name="title" value="아이디 비밀번호 찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/findIdPwd/findIdPwd.jsp" />
+	</definition>
+
+	<definition name="findId" extends="noTiles">
+		<put-attribute name="title" value="아이디 찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/findIdPwd/findId.jsp" />
+	</definition>
+
+	<definition name="findPwd" extends="noTiles">
+		<put-attribute name="title" value="비밀번호 찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/findIdPwd/findPwd.jsp" />
+	</definition>
+
+	<definition name="findPwd_success" extends="noTiles">
+		<put-attribute name="title" value="아이디 찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/findIdPwd/findPwd_success.jsp" />
+	</definition>
+
+	<definition name="findId_success" extends="noTiles">
+		<put-attribute name="title" value="아이디 찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/findIdPwd/findId_success.jsp" />
+	</definition>
+
+	<!--************************************ etc ************************************ -->
+	<!-- 로그인시 홈 -->
+
+	<!-- 404에러시 화면 -->
+	<definition name="404" extends="base">
+		<put-attribute name="title" value="페이지 없어" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/others/404.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>

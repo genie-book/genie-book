@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.product">
+	<!-- ResultMap 정의 -->
+	<resultMap id="productResult" type="productVO">
+		<result property="bookNo" column="bookNo" />
+		<result property="category" column="category" />
+		<result property="bookName" column="bookName" />
+		<result property="writer" column="writer" />
+		<result property="publisher" column="publisher" />
+		<result property="pubYear" column="pubYear" />
+		<result property="price" column="price" />
+		<result property="stock" column="stock" />
+		<result property="imageFileName" column="imageFileName" />
+	</resultMap>
+
+	<!-- ************************************************* -->
+	<insert id="addProduct" parameterType="productVO">
+  		<![CDATA[
+	    	insert into product(bookNo, category, bookName, writer, publisher, pubYear, price, stock, description, imageFileName)
+	    	values(seq_bookNo.nextval, #{category, jdbcType=VARCHAR}, #{bookName, jdbcType=VARCHAR}, #{writer, jdbcType=VARCHAR},
+	    	#{publisher, jdbcType=VARCHAR}, #{pubYear, jdbcType=DATE}, #{price, jdbcType=INTEGER}, #{stock, jdbcType=INTEGER}, 
+	    	#{description, jdbcType=VARCHAR}, #{imageFileName, jdbcType=VARCHAR})
+	   ]]>
+	</insert>
+
+	<delete id="deleteProduct" parameterType="int">
+		<![CDATA[
+			delete product where bookNo = #{bookNo}
+		]]>
+	</delete>
+
+	<update id="updateProduct" parameterType="productVO">
+		<![CDATA[
+			update product set bookName = #{bookName}, writer = #{writer}, publisher = #{publisher}, description = #{description},
+			stock=#{stock}, pubYear = #{pubYear}, price= #{price}, imageFileName = #{imageFileName} where bookNo = #{bookNo}
+		]]>
+	</update>
+
+
+	<!-- Ramdom 상품 선택 -->
+	<select id="selectBookListByRecommendation"
+		resultMap="productResult">
+		<![CDATA[
+			SELECT rownum, t.*
+			FROM (SELECT p.* FROM Product p order by DBMS_RANDOM.VALUE) t
+			WHERE rownum < 7
+		]]>
+	</select>
+
+	<!-- 상품 전체 선택 -->
+	<select id="selectProductListAll" resultMap="productResult">
+				<![CDATA[
+			SELECT * FROM product order by bookNo
+		]]>
+	</select>
+
+	<!-- 카데고리 별 상품 선택 -->
+	<select id="selectBookListByCategory" parameterType="String"
+		resultMap="productResult">
+       <![CDATA[
+       		select * from product where category = #{category} order by bookNo
+	   ]]>
+	</select>
+
+	<!-- 특정 id 상품 검색 -->
+	<select id="selectProductByBookNo" parameterType="int"
+		resultType="productVO">
+		<![CDATA[
+			select * from product where bookNo = #{bookNo}
+		]]>
+	</select>
+</mapper>

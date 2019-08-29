@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.board">
+	<resultMap id="boardsResult" type="boardVO">
+		<result property="boardId" column="boardId" />
+		<result property="memberId" column="memberId" />
+		<result property="title" column="title" />
+		<result property="boardDate" column="boardDate" />
+		<result property="content" column="content" />
+		<result property="viewCnt" column="viewCnt" />
+		<result property="imageFileName" column="imageFileName" />
+		<result property="originNo" column="originNo" />
+		<result property="groupOrd" column="groupOrd" />
+		<result property="groupLayer" column="groupLayer" />
+	</resultMap>
+
+	<!-- <resultMap id="imgResult" type="imageVO"> <result property="imageFileNO" 
+		column="imageFileNO" /> <result property="articleNO" column="articleNO" /> 
+		<result property="imageFileName" column="imageFileName" /> </resultMap> -->
+
+	<select id="selectAllBoardList" resultMap="boardsResult">
+    <![CDATA[
+     SELECT rnum, T.*
+   FROM ( SELECT boardId, memberId, boardDate, title, content, viewCnt, imageFileName, ROW_NUMBER() OVER(ORDER BY originNo desc, groupLayer asc) as rnum
+                   FROM g_board) T
+  WHERE rnum BETWEEN #{startList} AND #{endList}
+    ]]>
+	</select>
+	
+	<select id="selectAllBoardListById" resultMap="boardsResult" parameterType="map">
+    <![CDATA[
+     SELECT rnum, T.*
+   FROM ( SELECT boardId, memberId, boardDate, title, content, viewCnt, imageFileName, ROW_NUMBER() OVER(ORDER BY originNo desc, groupLayer asc) as rnum
+                   FROM g_board) T
+  WHERE memberId = #{id} and rnum BETWEEN #{pagination.startList} AND #{pagination.endList}
+    ]]>
+	</select>
+
+
+
+	<insert id="addBoard" parameterType="boardVO">
+	<![CDATA[
+			insert into g_board(boardId,  memberId, title, content, imageFileName, originNo, groupOrd, groupLayer)
+			values(seq_g_board_boardId.nextval, #{memberId}, #{title}, #{content}, #{imageFileName,jdbcType=VARCHAR}, seq_g_board_boardId.nextval, #{groupOrd}, #{groupLayer})
+			]]>
+	</insert>
+
+	<insert id="replyBoard" parameterType="boardVO">
+	<![CDATA[
+			insert into g_board(boardId,  memberId, title, content, imageFileName, originNo, groupOrd, groupLayer)
+			values(seq_g_board_boardId.nextval, #{memberId}, #{title}, #{content}, #{imageFileName,jdbcType=VARCHAR}, #{originNo}, #{groupOrd}, #{groupLayer})
+			]]>
+	</insert>
+
+	<update id="updateBoard" parameterType="boardVO">
+	<![CDATA[
+		update g_board set
+            content = #{content}
+            , boardDate = sysdate
+            , imageFileName = #{imageFileName,jdbcType=VARCHAR}
+        where
+            boardId = #{boardId}
+            	]]>
+	</update>
+
+	<select id="getBoardListCnt" resultType="int">
+		<![CDATA[ select count(*) as listCnt from g_board ]]>
+	</select>
+	
+	<select id="getBoardListCntById" resultType="int" parameterType="String">
+		<![CDATA[ select count(*) as listCnt from g_board where memberId = #{id} ]]>
+	</select>
+
+	<select id="selectByBoardId" resultType="boardVO">
+		<![CDATA[
+		select * from g_board where boardId = #{boardId}
+		]]>
+	</select>
+
+	<delete id="deleteBoard" parameterType="Map">
+	<![CDATA[
+		delete from g_board
+		where originNo = #{originNo} and groupLayer >= #{groupLayer}
+			]]>
+	</delete>
+
+	<update id="increaseViewCnt" parameterType="String">
+	<![CDATA[
+		update g_board set viewCnt = viewCnt + 1
+		where boardId = #{boardId}
+		]]>
+	</update>
+	<!-- <select id="selectNewArticleNO" resultType="int" > <![CDATA[ SELECT 
+		max(articleNO)+1 from t_board ]]> </select> <select id="selectArticle" resultType="articleVO" 
+		parameterType="int"> <![CDATA[ SELECT * from t_board where articleNO = #{articleNO} 
+		]]> </select> <update id="updateArticle" parameterType="java.util.Map"> update 
+		t_board set title=#{title}, content=#{content} <if test="imageFileName!='' 
+		and imageFileName!=null"> , imageFileName=#{imageFileName} </if> where articleNO=#{articleNO} 
+		</update> <delete id="deleteArticle" parameterType="int"> <![CDATA[ delete 
+		from t_board where articleNO in ( SELECT articleNO FROM t_board START WITH 
+		articleNO = #{articleNO} CONNECT BY PRIOR articleNO = parentNO ) ]]> </delete> 
+		다중 이미지 추가 SQL문 <insert id="insertNewArticle" parameterType="java.util.Map"> 
+		<![CDATA[ insert into t_board(articleNO, id, title, content, imageFileName) 
+		values(#{articleNO}, #{id}, #{title}, #{content}, null) ]]> </insert> <insert 
+		id="insertNewImage" parameterType="java.util.Map"> <foreach item="item" collection="list" 
+		open="INSERT ALL" separator=" " close="SELECT * FROM DUAL" > INTO t_imageFile(imageFileNO, 
+		imageFileName, articleNO, regDate) VALUES (#{item.imageFileNO}, #{item.imageFileName}, 
+		#{item.articleNO}, sysdate) </foreach> </insert> <select id="selectNewImageFileNO" 
+		resultType="int" > <![CDATA[ SELECT nvl(max(imageFileNO),0) from t_imageFile 
+		]]> </select> <select id="selectImageFileList" resultMap="imgResult" parameterType="int"> 
+		<![CDATA[ SELECT * from t_imageFile where articleNO=#{articleNO} ]]> </select> -->
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.history">
+<!-- 리절트 맵 정의 -->	
+
+	
+	<resultMap id="HistoryResult" type="historyVO">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="content" column="content" />
+		<result property="email" column="email" />
+		<result property="phoneNum" column="phoneNum" />
+		<result property="cartId" column="cartId" />
+		<result property="bookNo" column="bookNo" />
+		<result property="price" column="price" />
+		<result property="quantity" column="quantity" />
+		<result property="grandTotal" column="grandTotal" />
+		<result property="addr_num" column="addr_num" />
+		<result property="addr_road" column="addr_road" />
+		<result property="addr_detail" column="addr_detail" />
+		<result property="purchase_date" column="purchase_date" />
+
+		
+	</resultMap>	
+	<!-- ************************************************* -->
+	<insert id="addHistory"  parameterType="historyVO">
+  <![CDATA[
+    	insert into history(id, name, cartId, email, content, phoneNum, bookNo, price, quantity, grandTotal, addr_num,
+    					addr_road, addr_detail, purchase_date)
+    					values(#{id}, #{name}, #{cartId}, #{email}, #{content}, #{phoneNum}, #{bookNo}, #{price},
+    						#{quantity}, #{grandTotal}, #{addr_num}, #{addr_road}, 
+    						#{addr_detail}, sysdate)
+                                  
+   ]]>      
+  </insert>
+  
+  <select id="getHistoryById" resultType="historyVO" parameterType="String">
+	   select * from history where id = #{id} order by purchase_date desc
+	</select>
+
+<select id="getHistoryByIdByDate" resultType="historyVO" parameterType="map">
+	   select * from history where id = #{id} and purchase_date = #{purchase_date}
+	</select>
+
+	<delete id="deleteHistory" parameterType="integer">
+		delete from history where cartId = #{cartId}
+	</delete>
+</mapper>

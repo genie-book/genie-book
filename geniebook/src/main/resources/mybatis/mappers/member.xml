@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+<!-- 리절트 맵 정의 -->	
+	<resultMap id="memberResult" type="MemberVO">
+		<result property="memberNo" column="memberNo" />
+		<result property="name" column="name" />
+		<result property="jumin" column="jumin" />
+		<result property="id" column="id" />
+		<result property="password" column="password" />
+		<result property="pwHint" column="pwHint" />
+		<result property="pwHintAns" column="pwHintAns" />
+		<result property="email" column="email" />
+		<result property="receive_email" column="receive_email" />
+		<result property="authority" column="authority" />
+		<result property="houseNum" column="houseNum" />
+		<result property="phoneNum" column="phoneNum" />
+		<result property="enabled" column="enabled" />
+		<result property="cartId_mem" column="cartId_mem" />
+		<result property="point" column="point" />
+		<result property="acc_Price" column="acc_Price" />
+	</resultMap>	
+
+	<!-- ************************************************* -->
+	
+	<!-- 모든 회원 조회 --> <!-- 완료 -->
+	<select id="selectAllMemberList" resultType="memberVO">
+	   select * from member where id not like '%admin%'
+	</select>
+	
+	<!-- id,jumin으로 조회 --> <!-- 완료 -->
+	<select id="selectUserNameInfo" resultType="memberVO" parameterType="map">
+	   select * from member where name = #{name} and jumin = #{jumin}
+	</select>
+	
+	<!-- 아이디 중복검사 --> <!-- 완료 -->
+	<select id="selectOverlappedID" parameterType="String" resultType="String">
+	   select decode(count(*),1, 'true', 0, 'false')
+	   from member
+	   where id = #{id}
+	</select>
+	
+	<!-- 사용자 추가 -->	<!-- 추가예정 -->
+	<insert id="addMember"  parameterType="memberVO">
+  <![CDATA[
+    	insert into member(memberNo, name, jumin, id, password, pwHint, pwHintAns, email, receive_email, authority,
+    	 houseNum, phoneNum, enabled, cartId_mem, point,acc_Price)
+    				 values(memberNo.nextval, #{name} , #{jumin}, #{id}, #{password}, #{pwHint}, #{pwHintAns},
+    				  #{email}, #{receive_email}, #{authority}, #{houseNum}, #{phoneNum}, #{enabled}, seq_cartId_mem.nextval, #{point}, #{acc_Price})
+                                  
+   ]]>      
+  </insert>
+	
+	<!-- 특정id 사용자 정보 검색 --> 
+	<select id="selectUserInfo" parameterType="String" resultType="memberVO">
+	   select *
+	   from member
+	   where id = #{id}
+	</select>
+	
+	<update id="updateMember" parameterType="memberVO"  >
+	    <![CDATA[
+			update member set password=#{password}, pwHint=#{pwHint}, pwHintAns=#{pwHintAns}, email=#{email},
+					receive_email = #{receive_email}, houseNum=#{houseNum}, phoneNum=#{phoneNum} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where id = #{id}
+	</delete>
+	
+	<update id="updatePwdById" parameterType="map"  >
+	    <![CDATA[
+			update member set password=#{password} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+	<update id="addPoint" parameterType="map"  >
+	    <![CDATA[
+			update member set point= point+#{point} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+	<update id="addAcc_Price" parameterType="map"  >
+	    <![CDATA[
+			update member set acc_Price= acc_Price+#{acc_Price} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+</mapper>

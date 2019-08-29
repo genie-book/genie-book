@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.review">
+	<resultMap id="reviewResult" type="reviewVO">
+		<result property="reviewId" column="reviewId" />
+		<result property="memberId" column="memberId" />
+		<result property="bookNo" column="bookNo" />
+		<result property="reviewDate" column="reviewDate" />
+		<result property="content" column="content" />
+	</resultMap>
+	
+	<select id="selectReviewByBookNo" resultMap="reviewResult" parameterType="integer">
+	<![CDATA[
+		select reviewId, memberId, reviewDate, content, bookNo from review where bookNo = #{bookNo} order by reviewDate
+		  ]]>
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewVO">
+		<![CDATA[
+		insert into review(
+			reviewId, memberId, reviewDate, content, bookNo)
+			values(
+			seq_review_reviewId.nextval, #{memberId}, sysdate, #{content}, #{bookNo})
+		  ]]>
+	</insert>
+	
+	<update id="updateReview" parameterType="reviewVO">
+		<![CDATA[
+		update review
+		set
+			content = #{content},
+			reviewDate = sysdate
+		where reviewId = #{reviewId}
+		  ]]>
+	</update>
+	
+	<delete id="deleteReview" parameterType="integer">
+		<![CDATA[
+		delete from review
+		where reviewId = #{reviewId}
+		  ]]>
+	</delete>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+<!-- 리절트 맵 정의 -->	
+
+	
+	<resultMap id="CartResult" type="CartVO">
+		<result property="id" column="id" />
+		<result property="grandTotal" column="grandTotal" />
+
+		
+	</resultMap>	
+	<!-- ************************************************* -->
+	<insert id="addCart"  parameterType="integer">
+  <![CDATA[
+    	insert into cart(id, grandTotal)
+    					values(#{cartId_mem}, 0)
+                                  
+   ]]>      
+  </insert>
+  
+  <select id="getCartById" resultMap="CartResult" parameterType="integer">
+    <![CDATA[
+      SELECT * from cart where id = #{cartId}
+    ]]>
+	</select>
+	
+	<update id="updateGrandTotal" parameterType="cartVO"  >
+	    <![CDATA[
+			update cart set grandTotal = #{grandTotal} where id=#{id}
+			        
+    	]]>
+	</update>
+	
+	<delete id="deleteCart" parameterType="integer">
+		delete from cart where id = #{id}
+	</delete>
+
+	
+</mapper>
