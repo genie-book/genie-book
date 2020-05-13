@@ -7,8 +7,3 @@ Java, JSP, Spring MVC, MyBatis, Tiles, Oracle, AJAX, HTML, JS
 
 ## 3. Date
 2019.08 ~ 2019.08
-
-## 4. Role
-<ul>
-<li>Book Component Development</li>
-</ul>
